@@ -17,52 +17,55 @@
         </nav>
     </header>
 
-    <section id="produtos" class="produtos">
-        <h2>Nosso Catálogo</h2>
-        <div class="cards-container">
-            <!-- Produto 1: Copão de Vodka com Energético -->
-            <div class="card">
-                <img src="https://images.unsplash.com/photo-1621509894819-9b5d01b7f938" alt="Copão de Vodka com Energético" />
-                <h3>Copão Vodka com Energético</h3>
-                <p>Copão de vodka gelada com energético para animar sua festa.</p>
+    <section id="produtos">
+        <h2>Nossos Produtos</h2>
+        <div class="produtos-container">
+            <!-- Produto 1: Copão de Vodka com energético -->
+            <div class="produto">
+                <img src="https://images.unsplash.com/photo-1594300983498-1e6b2d9f7b9b" alt="Copão de Vodka com energético" />
+                <h3>Copão de Vodka com Energético</h3>
+                <p>Vodka de alta qualidade com energético, perfeito para festas.</p>
                 <p class="preco">R$ 25,00</p>
-                <button onclick="adicionarAoCarrinho('Copão Vodka com Energético', 25)">Adicionar ao Carrinho</button>
+                <button>Comprar</button>
             </div>
-            <!-- Produto 2: Gin de 10ml -->
-            <div class="card">
-                <img src="https://images.unsplash.com/photo-1646881036350-4e3f4f64b0f0" alt="Gin 10ml" />
-                <h3>Gin de 10ml</h3>
-                <p>Garrafa de gin de 10ml, perfeito para experimentar novos sabores.</p>
-                <p class="preco">R$ 15,00</p>
-                <button onclick="adicionarAoCarrinho('Gin 10ml', 15)">Adicionar ao Carrinho</button>
+            <!-- Produto 2: Gin de 10 anos -->
+            <div class="produto">
+                <img src="https://images.unsplash.com/photo-1617087500265-9f0f0e8b7a2f" alt="Gin de 10 anos" />
+                <h3>Gin de 10 Anos</h3>
+                <p>Gin envelhecido de 10 anos, com sabor intenso e aromático.</p>
+                <p class="preco">R$ 80,00</p>
+                <button>Comprar</button>
             </div>
-            <!-- Produto 3: Whisky diversos sabores e modelos -->
-            <div class="card">
-                <img src="https://images.unsplash.com/photo-1571171637578-41bc2dd41cd2" alt="Whisky Diversos" />
-                <h3>Whisky Diversos Sabores</h3>
-                <p>Variedade de sabores e modelos de whisky para todos os gostos.</p>
-                <p class="preco">A partir de R$ 40,00</p>
-                <button onclick="adicionarAoCarrinho('Whisky Diversos', 40)">Adicionar ao Carrinho</button>
+            <!-- Produto 3: Whisky de vários sabores e modelos -->
+            <div class="produto">
+                <img src="https://images.unsplash.com/photo-1611095564990-7f3f0b2d1e3b" alt="Whisky Variados" />
+                <h3>Whisky de Diversos Sabores e Modelos</h3>
+                <p>Seleção de whiskies com diferentes sabores e estilos.</p>
+                <p class="preco">A partir de R$ 60,00</p>
+                <button>Comprar</button>
             </div>
         </div>
-    </section>
-
-    <section id="carrinho" class="carrinho">
-        <h2>Seu Carrinho</h2>
-        <div id="itensCarrinho"></div>
-        <div class="total">
-            <strong>Total:</strong> R$ <span id="totalCarrinho">0,00</span>
-        </div>
-        <button onclick="finalizarCompra()">Finalizar Compra</button>
     </section>
 
     <section id="contato">
         <h2>Contato</h2>
-        <p>Para pedidos ou dúvidas, envie um e-mail para: <a href="mailto:contato@loja.com">contato@loja.com</a></p>
+        <form id="form-contato">
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" name="nome" required />
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required />
+
+            <label for="mensagem">Mensagem:</label>
+            <textarea id="mensagem" name="mensagem" rows="4" required></textarea>
+
+            <button type="submit">Enviar</button>
+        </form>
+        <div id="mensagem-confirmacao"></div>
     </section>
 
     <footer>
-        <p>&copy; 2024 Loja de Bebidas Alcoólicas</p>
+        <p>&copy; 2024 Loja de Bebidas Alcoólicas. Todos os direitos reservados.</p>
     </footer>
 
     <script src="script.js"></script>
