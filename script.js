@@ -1,40 +1,15 @@
-let carrinho = [];
+document.getElementById('form-contato').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const nome = document.getElementById('nome').value;
+    const email = document.getElementById('email').value;
+    const mensagem = document.getElementById('mensagem').value;
 
-function adicionarAoCarrinho(nome, preco) {
-    carrinho.push({ nome, preco });
-    atualizarCarrinho();
-}
+    // Você pode enviar o formulário via AJAX aqui se desejar
+    // Para este exemplo, apenas exibe uma mensagem de confirmação
 
-function atualizarCarrinho() {
-    const container = document.getElementById('itensCarrinho');
-    container.innerHTML = '';
+    const confirmacao = document.getElementById('mensagem-confirmacao');
+    confirmacao.textContent = `Obrigado, ${nome}! Sua mensagem foi enviada com sucesso.`;
 
-    let total = 0;
-    carrinho.forEach((item, index) => {
-        total += item.preco;
-        const itemDiv = document.createElement('div');
-        itemDiv.className = 'item-carrinho';
-        itemDiv.innerHTML = `
-            ${item.nome} - R$ ${item.preco.toFixed(2)} 
-            <button onclick="removerItem(${index})">Remover</button>
-        `;
-        container.appendChild(itemDiv);
-    });
-
-    document.getElementById('totalCarrinho').innerText = total.toFixed(2).replace('.', ',');
-}
-
-function removerItem(index) {
-    carrinho.splice(index, 1);
-    atualizarCarrinho();
-}
-
-function finalizarCompra() {
-    if (carrinho.length === 0) {
-        alert('Seu carrinho está vazio!');
-        return;
-    }
-    alert('Compra finalizada! Obrigado pelo pedido.');
-    carrinho = [];
-    atualizarCarrinho();
-}
+    // Limpar o formulário
+    document.getElementById('form-contato').reset();
+});
