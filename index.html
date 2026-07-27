@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adega Premium - As Melhores Bebidas</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <h1>Adega<span>Premium</span></h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#home">Início</a></li>
+                <li><a href="#produtos">Produtos</a></li>
+                <li><a href="#sobre">Sobre</a></li>
+            </ul>
+        </nav>
+        <div class="carrinho-icon" id="cart-icon">
+            <i class="fa-solid fa-cart-shopping"></i>
+            <span id="cart-count">0</span>
+        </div>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h2>As melhores bebidas no conforto da sua casa</h2>
+            <p>Sucos artesanais, refrigerantes especiais, águas aromatizadas e muito mais.</p>
+            <a href="#produtos" class="btn">Ver Catálogo</a>
+        </div>
+    </section>
+
+    <section id="produtos" class="container">
+        <h2>Nossos Destaques</h2>
+        <div class="grid-produtos">
+            
+            <div class="card-produto">
+                <img src="https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=500&q=80" alt="Refrigerante Artesanal">
+                <h3>Soda Artesanal de Limão</h3>
+                <p>Refrescante e 100% natural.</p>
+                <span class="preco">R$ 12,00</span>
+                <button class="btn-comprar" onclick="adicionarAoCarrinho('Soda Artesanal de Limão', 12.00)">Adicionar ao Carrinho</button>
+            </div>
+
+            <div class="card-produto">
+                <img src="https://images.unsplash.com/photo-1600271886742-f049cd451bba?w=500&q=80" alt="Suco Natural">
+                <h3>Suco de Laranja Integral</h3>
+                <p>Sem adição de açúcares ou conservantes.</p>
+                <span class="preco">R$ 15,00</span>
+                <button class="btn-comprar" onclick="adicionarAoCarrinho('Suco de Laranja Integral', 15.00)">Adicionar ao Carrinho</button>
+            </div>
+
+            <div class="card-produto">
+                <img src="https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=500&q=80" alt="Drink Sem Álcool">
+                <h3>Coquetel de Frutas (Zero Álcool)</h3>
+                <p>Mistura perfeita de frutas tropicais.</p>
+                <span class="preco">R$ 18,00</span>
+                <button class="btn-comprar" onclick="adicionarAoCarrinho('Coquetel de Frutas', 18.00)">Adicionar ao Carrinho</button>
+            </div>
+
+        </div>
+    </section>
+
+    <div id="cart-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" id="close-cart">&times;</span>
+            <h2>Seu Carrinho</h2>
+            <ul id="cart-items"></ul>
+            <div class="cart-total">
+                <strong>Total: R$ <span id="cart-total-price">0.00</span></strong>
+            </div>
+            <button class="btn" onclick="finalizarPedido()">Finalizar no WhatsApp</button>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Adega Premium. Todos os direitos reservados.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
