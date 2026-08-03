@@ -3,129 +3,426 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🍾 Boteco Premium - Bebidas & Cia</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <title>Drinks & Co. | Bebidas Alcoólicas Premium</title>
+    <style>
+        /* ===== RESET E BASE ===== */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --preto: #0f0f14;
+            --preto-suave: #1a1a24;
+            --dourado: #d4af37;
+            --dourado-claro: #f0d78c;
+            --branco: #f5f5f7;
+            --cinza: #9b9ba3;
+            --botao: #e0b03c;
+            --botao-hover: #f0c24f;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--preto);
+            color: var(--branco);
+            line-height: 1.6;
+        }
+
+        /* ===== BARRA DE NAVEGAÇÃO ===== */
+        header {
+            background: rgba(15, 15, 20, 0.95);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid var(--dourado);
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+        }
+
+        .logo span { color: var(--dourado); }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--branco);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover { color: var(--dourado); }
+
+        .menu-icon {
+            display: none;
+            font-size: 2rem;
+            cursor: pointer;
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            background: linear-gradient(135deg, var(--preto) 0%, #2a1a3e 50%, var(--preto-suave) 100%);
+            text-align: center;
+            padding: 6rem 2rem;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(90deg, var(--dourado-claro), var(--dourado));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            color: var(--cinza);
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--botao);
+            color: var(--preto);
+            padding: 0.9rem 2.5rem;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover { background: var(--botao-hover); transform: translateY(-3px); }
+
+        /* ===== SEÇÕES ===== */
+        section { max-width: 1200px; margin: 4rem auto; padding: 0 2rem; }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--branco);
+        }
+
+        .section-title span { color: var(--dourado); }
+
+        .section-sub {
+            text-align: center;
+            color: var(--cinza);
+            margin-bottom: 3rem;
+        }
+
+        /* ===== CATÁLOGO / CARDS ===== */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background: var(--preto-suave);
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid #2a2a35;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(212, 175, 55, 0.2);
+        }
+
+        .card-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+            background: #262632;
+            /* Placeholder colors para produtos sem imagem */
+            position: relative;
+        }
+
+        /* Placeholder mnemônico via gradiente */
+        .card-img.vodka { background: linear-gradient(135deg, #88e0f0, #3aa5d0); }
+        .card-img.gin { background: linear-gradient(135deg, #b1f0b1, #4ac94a); }
+        .card-img.whisky { background: linear-gradient(135deg, #f0b060, #c9762a); }
+
+        .card-content { padding: 1.5rem; }
+
+        .card-content h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-content .desc { color: var(--cinza); font-size: 0.95rem; margin-bottom: 1rem; }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .price { font-size: 1.4rem; font-weight: 800; color: var(--dourado); }
+
+        .order-btn {
+            background: var(--botao);
+            color: var(--preto);
+            border: none;
+            padding: 0.5rem 1.2rem;
+            font-weight: 700;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .order-btn:hover { background: var(--botao-hover); }
+
+        /* ===== SOBRE ===== */
+        .about-box {
+            background: var(--preto-suave);
+            border-radius: 15px;
+            padding: 3rem;
+            text-align: center;
+            border: 1px solid #2a2a35;
+        }
+
+        .about-box h2 { font-size: 2rem; margin-bottom: 1rem; }
+        .about-box h2 span { color: var(--dourado); }
+        .about-box p { color: var(--cinza); max-width: 700px; margin: 0 auto; }
+
+        /* ===== CONTATO ===== */
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .contact-item h3 { color: var(--dourado); margin-bottom: 0.5rem; }
+
+        .contact-item p { color: var(--cinza); }
+
+        /* ===== RODAPÉ ===== */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            border-top: 2px solid #2a2a35;
+            color: var(--cinza);
+            font-size: 0.9rem;
+        }
+
+        footer a { color: var(--dourado); text-decoration: none; }
+
+        /* ===== RESPONSIVO ===== */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background: var(--preto-suave);
+                padding: 1rem 2rem;
+                gap: 1rem;
+            }
+            .nav-links.active { display: flex; }
+            .menu-icon { display: block; }
+            .about-box { padding: 2rem; }
+        }
+
+        /* ===== ANIMAÇÃO ===== */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate { animation: fadeInUp 0.8s ease forwards; }
+    </style>
 </head>
 <body>
 
-    <!-- HEADER / NAVBAR -->
-    <header class="navbar">
-        <div class="container nav-inner">
-            <a href="#" class="logo">🍾 Boteco<span>Premium</span></a>
-            <nav class="nav-links">
-                <a href="#inicio">Início</a>
-                <a href="#produtos">Produtos</a>
-                <a href="#sobre">Sobre</a>
-                <a href="#contato">Contato</a>
-            </nav>
-            <button class="cart-btn" id="cartBtn">
-                🛒 <span id="cartCount" class="cart-count">0</span>
-            </button>
-        </div>
+    <!-- ===== NAVEGAÇÃO ===== -->
+    <header>
+        <nav>
+            <div class="logo">Drinks<span>&amp;Co.</span></div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#produtos">Produtos</a></li>
+                <li><a href="#sobre">Sobre</a></li>
+                <li><a href="#contato">Contato</a></li>
+                <li><a href="#pedido">Pedir</a></li>
+            </ul>
+            <div class="menu-icon" onclick="toggleMenu()">☰</div>
+        </nav>
     </header>
 
-    <!-- HERO -->
-    <section id="inicio" class="hero">
-        <div class="container hero-inner">
-            <div class="hero-text">
-                <h1>As melhores bebidas para o seu <span>rolê perfeito</span></h1>
-                <p>Copão de vodka com energético, gin gelado e os whiskys mais premium do mercado. Entrega rápida e preço de amigo.</p>
-                <a href="#produtos" class="btn-primary">Ver Produtos</a>
-            </div>
-            <div class="hero-img">
-                <img src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=500" alt="Bebidas no bar">
-            </div>
-        </div>
-    </section>
-
-    <!-- PRODUTOS -->
-    <section id="produtos" class="products">
-        <div class="container">
-            <h2 class="section-title">Nossos Produtos</h2>
-            <p class="section-sub">Escolha sua bebida favorita</p>
-
-            <div class="filters">
-                <button class="filter-btn active" data-filter="all">Todos</button>
-                <button class="filter-btn" data-filter="vodka">Vodka</button>
-                <button class="filter-btn" data-filter="gin">Gin</button>
-                <button class="filter-btn" data-filter="whisky">Whisky</button>
-            </div>
-
-            <div id="productGrid" class="product-grid">
-                <!-- Produtos serão renderizados via JS -->
-            </div>
-        </div>
-    </section>
-
-    <!-- SOBRE -->
-    <section id="sobre" class="about">
-        <div class="container about-inner">
-            <div class="about-img">
-                <img src="https://images.unsplash.com/photo-1544145945-f90425340c7e?w=500" alt="Bebidas na mesa">
-            </div>
-            <div class="about-text">
-                <h2>Sobre o Boteco Premium</h2>
-                <p>Há mais de 10 anos levando alegria e boas bebidas para a sua festa. Selecionamos apenas produtos de qualidade, com atendimento rápido e delivery em toda a região.</p>
-                <ul>
-                    <li>✔️ Entrega em até 40 minutos</li>
-                    <li>✔️ Bebidas sempre geladas</li>
-                    <li>✔️ Pagamento na entrega ou pix</li>
-                    <li>✔️ Acompanhamento de pedido em tempo real</li>
-                </ul>
-            </div>
-        </div>
-    </section>
-
-    <!-- CONTATO -->
-    <section id="contato" class="contact">
-        <div class="container">
-            <h2 class="section-title">Fale Conosco</h2>
-            <p class="section-sub">Peça pelo WhatsApp ou visite a loja</p>
-            <div class="contact-cards">
-                <div class="contact-card">
-                    <span class="contact-icon">📱</span>
-                    <h3>WhatsApp</h3>
-                    <p>(11) 99999-0000</p>
-                </div>
-                <div class="contact-card">
-                    <span class="contact-icon">📍</span>
-                    <h3>Endereço</h3>
-                    <p>Rua da Cerveja, 123 - Centro</p>
-                </div>
-                <div class="contact-card">
-                    <span class="contact-icon">🕐</span>
-                    <h3>Horário</h3>
-                    <p>Seg a Dom - 18h às 02h</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CARRINHO MODAL -->
-    <div id="cartModal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn" id="closeCart">&times;</span>
-            <h2>Seu Carrinho 🛒</h2>
-            <div id="cartItems"></div>
-            <div class="cart-total">
-                <strong>Total:</strong> <span id="cartTotal">R$ 0,00</span>
-            </div>
-            <button class="btn-primary checkout-btn" id="checkoutBtn">Finalizar Pedido</button>
-        </div>
+    <!-- ===== HERO ===== -->
+    <div class="hero">
+        <h1>🍹 Bebidas Premium,<br>Estilo de Vida</h1>
+        <p>Copões de vodka com energético, gin gelado de 10 e whiskies de diversos sabores. Qualidade, sabor e preço justo — direto para a sua festa.</p>
+        <a href="#produtos" class="btn">Ver Produtos</a>
     </div>
 
-    <!-- TOAST DE CONFIRMAÇÃO -->
-    <div id="toast" class="toast"></div>
+    <!-- ===== PRODUTOS ===== -->
+    <section id="produtos">
+        <h2 class="section-title">Nossos <span>Produtos</span></h2>
+        <p class="section-sub">Escolha o seu favorito e faça o pedido</p>
 
-    <!-- RODAPÉ -->
-    <footer class="footer">
-        <div class="container">
-            <p>&copy; 2026 Boteco Premium. Todos os direitos reservados. 🍹 Beba com moderação.</p>
+        <div class="grid">
+
+            <!-- Vodka com Energético -->
+            <div class="card animate">
+                <img src="sua-imagem-vodka.jpg" alt="Copão de Vodka com Energético" class="card-img vodka">
+                <div class="card-content">
+                    <h3>Copão de Vodka com Energético</h3>
+                    <p class="desc">O clássico das festas. Vodka gelada com energético, cortesia perfeita para qualquer ocasião.</p>
+                    <div class="card-footer">
+                        <span class="price">R$ 15,00</span>
+                        <button class="order-btn">Pedir</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Gin de 10 -->
+            <div class="card animate">
+                <img src="sua-imagem-gin.jpg" alt="Gin de 10" class="card-img gin">
+                <div class="card-content">
+                    <h3>Gin de 10</h3>
+                    <p class="desc">Gin refrescante com um toque cítrico. A dose ideal para um brinde especial.</p>
+                    <div class="card-footer">
+                        <span class="price">R$ 18,00</span>
+                        <button class="order-btn">Pedir</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Whisky Clássico -->
+            <div class="card animate">
+                <img src="sua-imagem-whisky-1.jpg" alt="Whisky Clássico" class="card-img whisky">
+                <div class="card-content">
+                    <h3>Whisky Clássico</h3>
+                    <p class="desc">Sabor marcante e encorpado. Perfeito puro, com gelo ou em um bom drink.</p>
+                    <div class="card-footer">
+                        <span class="price">R$ 20,00</span>
+                        <button class="order-btn">Pedir</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Whisky de Mel -->
+            <div class="card animate">
+                <img src="sua-imagem-whisky-2.jpg" alt="Whisky de Mel" class="card-img whisky">
+                <div class="card-content">
+                    <h3>Whisky Sabor Mel</h3>
+                    <p class="desc">Doçura equilibrada do mel com a suavidade do whisky. Uma experiência única.</p>
+                    <div class="card-footer">
+                        <span class="price">R$ 22,00</span>
+                        <button class="order-btn">Pedir</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Adicione mais produtos abaixo -->
+            <!--
+            <div class="card animate">
+                <img src="sua-imagem.jpg" alt="Nome do Produto" class="card-img">
+                <div class="card-content">
+                    <h3>Nome do Produto</h3>
+                    <p class="desc">Descrição curta do produto.</p>
+                    <div class="card-footer">
+                        <span class="price">R$ 0,00</span>
+                        <button class="order-btn">Pedir</button>
+                    </div>
+                </div>
+            </div>
+            -->
+
         </div>
+    </section>
+
+    <!-- ===== SOBRE ===== -->
+    <section id="sobre">
+        <div class="about-box">
+            <h2>Quem Somos <span>?</span></h2>
+            <p>Somos apaixonados por boas bebidas e boas companhias. Trabalhamos apenas com produtos de qualidade selecionada, garantindo que cada copo seja uma experiência de sabor. Seja para a sua festa, confraternização ou um momento especial, estamos prontos para atender você.</p>
+        </div>
+    </section>
+
+    <!-- ===== CONTATO ===== -->
+    <section id="contato">
+        <h2 class="section-title">Fale <span>Conosco</span></h2>
+        <p class="section-sub">Peça pelo WhatsApp ou redes sociais</p>
+        <div class="contact-info">
+            <div class="contact-item">
+                <h3>WhatsApp</h3>
+                <p>(00) 00000-0000</p>
+            </div>
+            <div class="contact-item">
+                <h3>Instagram</h3>
+                <p>@drinks.eco</p>
+            </div>
+            <div class="contact-item">
+                <h3>Endereço</h3>
+                <p>Sua cidade, Brasil</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== PEDIDO ===== -->
+    <section id="pedido">
+        <h2 class="section-title">Faça seu <span>Pedido</span></h2>
+        <p class="section-sub">Preencha e nos chame no WhatsApp</p>
+        <div style="text-align:center;">
+            <a href="https://wa.me/5500000000000" class="btn" target="_blank">Pedir pelo WhatsApp</a>
+        </div>
+    </section>
+
+    <!-- ===== RODAPÉ ===== -->
+    <footer>
+        <p>© 2026 Drinks &amp; Co. — Todos os direitos reservados. <a href="#">Termos</a> · <a href="#">Privacidade</a></p>
+        <p style="margin-top:0.5rem;">Beba com moderação. Proibido para menores de 18 anos. 🚫🍺</p>
     </footer>
 
-    <script src="script.js"></script>
+    <!-- ===== SCRIPTS ===== -->
+    <script>
+        // Menu responsivo mobile
+        function toggleMenu() {
+            document.getElementById('navLinks').classList.toggle('active');
+        }
+
+        // Animações ao rolar (opcional)
+        window.addEventListener('scroll', function() {
+            // Small effect placeholder
+        });
+
+        // Botões "Pedir" — abre WhatsApp
+        document.querySelectorAll('.order-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const produto = this.closest('.card').querySelector('h3').textContent;
+                const preco = this.closest('.card').querySelector('.price').textContent;
+                const msg = encodeURIComponent(`Olá! Quero pedir: ${produto} (${preco})`);
+                window.open(`https://wa.me/5500000000000?text=${msg}`, '_blank');
+            });
+        });
+    </script>
+
 </body>
 </html>
