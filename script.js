@@ -1,241 +1,105 @@
-// ==================== DADOS DOS PRODUTOS ====================  
-const produtos = [  
-    // VODKA  
-    {  
-        id: 1,  
-        nome: "Copão de Vodka + Energético",  
-        categoria: "vodka",  
-        descricao: "Copão caprichado de vodka com energético gelado e gelo.",  
-        preco: 25.00,  
-        imagem: "https://images.unsplash.com/photo-1544145945-f90425340c7e?w=400",  
-        classe: "table-drink"  
-    },  
-    {  
-        id: 2,  
-        nome: "Copão de Vodka com Limão",  
-        categoria: "vodka",  
-        descricao: "Vodka premium, limão espremido na hora e muito gelo.",  
-        preco: 28.00,  
-        imagem: "https://images.unsplash.com/photo-1560512823-829485b8bf24?w=400"  
-    },  
-    {  
-        id: 3,  
-        nome: "Vodka Red Bull",  
-        categoria: "vodka",  
-        descricao: "Clássico com vodka e energético red bull.",  
-        preco: 30.00,  
-        imagem: "https://images.unsplash.com/photo-1536935338788-846bb9981813?w=400"  
-    },  
+/* ============================================  
+   Drinks & Co. — Script (JavaScript)  
+   ============================================ */  
 
-    // GIN  
-    {  
-        id: 4,  
-        nome: "Gin Tônica Clássico",  
-        categoria: "gin",  
-        descricao: "Gin premium com água tônica, limão siciliano e zimbro.",  
-        preco: 32.00,  
-        imagem: "https://images.unsplash.com/photo-1551538829-6c037c2cbf53?w=400"  
-    },  
-    {  
-        id: 5,  
-        nome: "Gin de 10 com Tônica",  
-        categoria: "gin",  
-        descricao: "O famoso gin de 10, servido com tônica e frutas vermelhas.",  
-        preco: 35.00,  
-        imagem: "https://images.unsplash.com/photo-1595981267035-7b04ca84a82d?w=400"  
-    },  
-    {  
-        id: 6,  
-        nome: "Brazilian Gin",  
-        categoria: "gin",  
-        descricao: "Gin importado com toque tropical de frutas nacionais.",  
-        preco: 38.00,  
-        imagem: "https://images.unsplash.com/photo-1574144113084-b6f450cc5e0c?w=400"  
-    },  
+// ===== CONFIGURAÇÕES DO WHATSAPP =====  
+// Substitua pelo seu número real no formato: 55 + DDD + número  
+const WHATSAPP_NUMBER = '5500000000000';  
+const WHATSAPP_MESSAGE_PREFIX = 'Olá! Vim pelo site da Drinks & Co.';  
 
-    // WHISKY  
-    {  
-        id: 7,  
-        nome: "Whisky Red Label",  
-        categoria: "whisky",  
-        descricao: "O clássico Red Label, puro ou no copão com energético.",  
-        preco: 45.00,  
-        imagem: "https://images.unsplash.com/photo-1527281400683-1aae777175f8?w=400"  
-    },  
-    {  
-        id: 8,  
-        nome: "Whisky Black Label",  
-        categoria: "whisky",  
-        descricao: "Blend sofisticado com notas de fumaça e baunilha.",  
-        preco: 60.00,  
-        imagem: "https://images.unsplash.com/photo-1584225064785-c62a8b43d148?w=400"  
-    },  
-    {  
-        id: 9,  
-        nome: "Whisky com Energético",  
-        categoria: "whisky",  
-        descricao: "Whisky variado com energético e muito gelo no copão.",  
-        preco: 42.00,  
-        imagem: "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=400"  
-    },  
-    {  
-        id: 10,  
-        nome: "Whisky com Cola",  
-        categoria: "whisky",  
-        descricao: "Blend suave com cola e limão. Refrescante do jeito certo.",  
-        preco: 40.00,  
-        imagem: "https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=400"  
-    }  
-];  
-
-// ==================== ESTADO DO CARRINHO ====================  
-let carrinho = [];  
-
-// ==================== RENDERIZAR PRODUTOS ====================  
-const grid = document.getElementById('productGrid');  
-
-function renderizarProdutos(filtro = 'all') {  
-    grid.innerHTML = '';  
-    const filtrados = filtro === 'all'  
-        ? produtos  
-        : produtos.filter(p => p.categoria === filtro);  
-
-    filtrados.forEach(produto => {  
-        // Escolhe uma imagem adequada por categoria se a padrão não tiver classe  
-        const card = document.createElement('div');  
-        card.className = 'product-card';  
-
-        const img = document.createElement('img');  
-        img.src = produto.imagem;  
-        img.alt = produto.nome;  
-
-        const info = document.createElement('div');  
-        info.className = 'product-info';  
-        info.innerHTML = `  
-            <span class="product-category">${categoriaLabel(produto.categoria)}</span>  
-            <h3 class="product-name">${produto.nome}</h3>  
-            <p class="product-desc">${produto.descricao}</p>  
-            <div class="product-bottom">  
-                <span class="product-price">R$ ${produto.preco.toFixed(2).replace('.', ',')}</span>  
-                <button class="add-btn" onclick="addToCart(${produto.id})">Adicionar</button>  
-            </div>  
-        `;  
-
-        card.appendChild(img);  
-        card.appendChild(info);  
-        grid.appendChild(card);  
-    });  
+// ===== FUNÇÃO: GERAR LINK DO WHATSAPP =====  
+function gerarLinkWhatsApp(produto, preco) {  
+    const mensagem = `${WHATSAPP_MESSAGE_PREFIX}\n\nQuero pedir: ${produto}\nValor: ${preco}`;  
+    return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(mensagem)}`;  
 }  
 
-function categoriaLabel(cat) {  
-    const labels = {  
-        vodka: 'Vodka',  
-        gin: 'Gin',  
-        whisky: 'Whisky'  
-    };  
-    return labels[cat] || cat;  
-}  
+// ===== MENU RESPONSIVO (HAMBÚRGUER) =====  
+document.addEventListener('DOMContentLoaded', () => {  
+    const menuIcon = document.querySelector('.menu-icon');  
+    const navLinks = document.getElementById('navLinks');  
 
-// ==================== FILTROS ====================  
-document.querySelectorAll('.filter-btn').forEach(btn => {  
-    btn.addEventListener('click', () => {  
-        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));  
-        btn.classList.add('active');  
-        renderizarProdutos(btn.dataset.filter);  
-    });  
-});  
+    if (menuIcon && navLinks) {  
+        // Abrir/fechar menu  
+        menuIcon.addEventListener('click', () => {  
+            navLinks.classList.toggle('active');  
+        });  
 
-// ==================== CARRINHO ====================  
-function addToCart(id) {  
-    const produto = produtos.find(p => p.id === id);  
-    const existente = carrinho.find(item => item.id === id);  
-
-    if (existente) {  
-        existente.qty++;  
-    } else {  
-        carrinho.push({ ...produto, qty: 1 });  
-    }  
-
-    atualizarCarrinho();  
-    mostrarToast(`${produto.nome} adicionado ao carrinho! 🍾`);  
-}  
-
-function atualizarCarrinho() {  
-    const totalItens = carrinho.reduce((sum, item) => sum + item.qty, 0);  
-    document.getElementById('cartCount').textContent = totalItens;  
-
-    // Renderizar itens no modal  
-    const cartItems = document.getElementById('cartItems');  
-    if (carrinho.length === 0) {  
-        cartItems.innerHTML = '<p class="empty-cart">Seu carrinho está vazio 😢</p>';  
-    } else {  
-        cartItems.innerHTML = '';  
-        carrinho.forEach(item => {  
-            const div = document.createElement('div');  
-            div.className = 'cart-item';  
-
-            const precoTotal = item.preco * item.qty;  
-            div.innerHTML = `  
-                <div class="cart-item-info">  
-                    <strong>${item.nome}</strong>  
-                    <div class="cart-item-qty">  
-                        <button class="qty-btn" onclick="mudarQty(${item.id}, -1)">−</button>  
-                        <span>${item.qty}</span>  
-                        <button class="qty-btn" onclick="mudarQty(${item.id}, 1)">+</button>  
-                        <span>R$ ${precoTotal.toFixed(2).replace('.', ',')}</span>  
-                        <button class="remove-btn" onclick="removerItem(${item.id})">Remover</button>  
-                    </div>  
-                </div>  
-            `;  
-            cartItems.appendChild(div);  
+        // Fechar menu ao clicar em um link (mobile)  
+        navLinks.querySelectorAll('a').forEach(link => {  
+            link.addEventListener('click', () => {  
+                navLinks.classList.remove('active');  
+            });  
         });  
     }  
 
-    const total = carrinho.reduce((sum, item) => sum + (item.preco * item.qty), 0);  
-    document.getElementById('cartTotal').textContent = `R$ ${total.toFixed(2).replace('.', ',')}`;  
-}  
+    // ===== DESTACAR LINK ATIVO CONFORME SCROLL =====  
+    const sections = document.querySelectorAll('section[id]');  
+    const navAnchors = document.querySelectorAll('.nav-links a');  
 
-function mudarQty(id, delta) {  
-    const item = carrinho.find(i => i.id === id);  
-    if (item) {  
-        item.qty += delta;  
-        if (item.qty <= 0) {  
-            carrinho = carrinho.filter(i => i.id !== id);  
-        }  
-        atualizarCarrinho();  
-    }  
-}  
+    function destacarLinkAtivo() {  
+        let posicaoAtual = window.scrollY + 100;  
 
-function removerItem(id) {  
-    carrinho = carrinho.filter(i => i.id !== id);  
-    atualizarCarrinho();  
-}  
-
-// ==================== MODAL DO CARRINHO ====================  
-const cartModal = document.getElementById('cartModal');  
-const cartBtn = document.getElementById('cartBtn');  
-const closeCart = document.getElementById('closeCart');  
-
-cartBtn.addEventListener('click', () => {  
-    cartModal.classList.add('active');  
-});  
-
-closeCart.addEventListener('click', () => {  
-    cartModal.classList.remove('active');  
-});  
-
-window.addEventListener('click', (e) => {  
-    if (e.target === cartModal) {  
-        cartModal.classList.remove('active');  
-    }  
-});  
-
-// ==================== FINALIZAR PEDIDO ====================  
-document.getElementById('checkoutBtn').addEventListener('click', () => {  
-    if (carrinho.length === 0) {  
-        mostrarToast('Adicione itens ao carrinho primeiro!');  
-        return;  
+        sections.forEach(section => {  
+            if (posicaoAtual >= section.offsetTop && posicaoAtual < section.offsetTop + section.offsetHeight) {  
+                const id = section.getAttribute('id');  
+                navAnchors.forEach(link => {  
+                    link.classList.remove('active');  
+                    if (link.getAttribute('href') === `#${id}`) {  
+                        link.classList.add('active');  
+                    }  
+                });  
+            }  
+        });  
     }  
 
-    const total = carrinho.reduce((sum, item) => sum + (item.preco * item.qty), 0);  
-    mostrarToast(`Pedido realizado! Total: R$ ${total
+    window.addEventListener('scroll', destacarLinkAtivo);  
+
+    // ===== BOTÕES "PEDIR" → WHATSAPP =====  
+    const orderButtons = document.querySelectorAll('.order-btn');  
+
+    orderButtons.forEach(btn => {  
+        btn.addEventListener('click', function () {  
+            const card = this.closest('.card');  
+            if (!card) return;  
+
+            const nomeProduto = card.querySelector('h3').textContent.trim();  
+            const preco = card.querySelector('.price').textContent.trim();  
+
+            window.open(gerarLinkWhatsApp(nomeProduto, preco), '_blank');  
+        });  
+    });  
+
+    // ===== ANIMAÇÃO DE ENTRADA DOS CARDS =====  
+    // Usa IntersectionObserver para revelar elementos ao rolar  
+    if ('IntersectionObserver' in window) {  
+        const cards = document.querySelectorAll('.card');  
+
+        const observer = new IntersectionObserver((entries) => {  
+            entries.forEach((entry, index) => {  
+                if (entry.isIntersecting) {  
+                    // Pequeno atraso em cascata para efeito suave  
+                    setTimeout(() => {  
+                        entry.target.style.opacity = '1';  
+                        entry.target.style.transform = 'translateY(0)';  
+                    }, index * 100);  
+                    observer.unobserve(entry.target);  
+                }  
+            });  
+        }, { threshold: 0.15 });  
+
+        cards.forEach(card => {  
+            card.style.opacity = '0';  
+            card.style.transform = 'translateY(30px)';  
+            card.style.transition = 'opacity 0.7s ease, transform 0.7s ease';  
+            observer.observe(card);  
+        });  
+    }  
+
+    // ===== ANIMAÇÃO DO BOTÃO "PEDIR PELO WHATSAPP" =====  
+    const whatsappBtn = document.querySelector('a[href*="wa.me"]');  
+    if (whatsappBtn) {  
+        whatsappBtn.addEventListener('click', () => {  
+            // Caso queira registrar clique ou analytics aqui  
+            console.log('Clique no botão do WhatsApp (pedido geral)');  
+        });  
+    }  
