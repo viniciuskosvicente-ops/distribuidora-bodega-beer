@@ -1,23 +1,129 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Venda de Bebidas Alcoólicas</title>
-    <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🍾 Boteco Premium - Bebidas & Cia</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header>
-        <h1>Loja de Bebidas Alcoólicas</h1>
-        <p>As melhores bebidas para você!</p>
+
+    <!-- HEADER / NAVBAR -->
+    <header class="navbar">
+        <div class="container nav-inner">
+            <a href="#" class="logo">🍾 Boteco<span>Premium</span></a>
+            <nav class="nav-links">
+                <a href="#inicio">Início</a>
+                <a href="#produtos">Produtos</a>
+                <a href="#sobre">Sobre</a>
+                <a href="#contato">Contato</a>
+            </nav>
+            <button class="cart-btn" id="cartBtn">
+                🛒 <span id="cartCount" class="cart-count">0</span>
+            </button>
+        </div>
     </header>
 
-    <section class="products" id="products">
-        <!-- Produtos serão carregados aqui pelo JavaScript -->
+    <!-- HERO -->
+    <section id="inicio" class="hero">
+        <div class="container hero-inner">
+            <div class="hero-text">
+                <h1>As melhores bebidas para o seu <span>rolê perfeito</span></h1>
+                <p>Copão de vodka com energético, gin gelado e os whiskys mais premium do mercado. Entrega rápida e preço de amigo.</p>
+                <a href="#produtos" class="btn-primary">Ver Produtos</a>
+            </div>
+            <div class="hero-img">
+                <img src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=500" alt="Bebidas no bar">
+            </div>
+        </div>
     </section>
 
-    <footer>
-        <p>&copy; 2024 Loja de Bebidas. Todos os direitos reservados.</p>
+    <!-- PRODUTOS -->
+    <section id="produtos" class="products">
+        <div class="container">
+            <h2 class="section-title">Nossos Produtos</h2>
+            <p class="section-sub">Escolha sua bebida favorita</p>
+
+            <div class="filters">
+                <button class="filter-btn active" data-filter="all">Todos</button>
+                <button class="filter-btn" data-filter="vodka">Vodka</button>
+                <button class="filter-btn" data-filter="gin">Gin</button>
+                <button class="filter-btn" data-filter="whisky">Whisky</button>
+            </div>
+
+            <div id="productGrid" class="product-grid">
+                <!-- Produtos serão renderizados via JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- SOBRE -->
+    <section id="sobre" class="about">
+        <div class="container about-inner">
+            <div class="about-img">
+                <img src="https://images.unsplash.com/photo-1544145945-f90425340c7e?w=500" alt="Bebidas na mesa">
+            </div>
+            <div class="about-text">
+                <h2>Sobre o Boteco Premium</h2>
+                <p>Há mais de 10 anos levando alegria e boas bebidas para a sua festa. Selecionamos apenas produtos de qualidade, com atendimento rápido e delivery em toda a região.</p>
+                <ul>
+                    <li>✔️ Entrega em até 40 minutos</li>
+                    <li>✔️ Bebidas sempre geladas</li>
+                    <li>✔️ Pagamento na entrega ou pix</li>
+                    <li>✔️ Acompanhamento de pedido em tempo real</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTATO -->
+    <section id="contato" class="contact">
+        <div class="container">
+            <h2 class="section-title">Fale Conosco</h2>
+            <p class="section-sub">Peça pelo WhatsApp ou visite a loja</p>
+            <div class="contact-cards">
+                <div class="contact-card">
+                    <span class="contact-icon">📱</span>
+                    <h3>WhatsApp</h3>
+                    <p>(11) 99999-0000</p>
+                </div>
+                <div class="contact-card">
+                    <span class="contact-icon">📍</span>
+                    <h3>Endereço</h3>
+                    <p>Rua da Cerveja, 123 - Centro</p>
+                </div>
+                <div class="contact-card">
+                    <span class="contact-icon">🕐</span>
+                    <h3>Horário</h3>
+                    <p>Seg a Dom - 18h às 02h</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CARRINHO MODAL -->
+    <div id="cartModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" id="closeCart">&times;</span>
+            <h2>Seu Carrinho 🛒</h2>
+            <div id="cartItems"></div>
+            <div class="cart-total">
+                <strong>Total:</strong> <span id="cartTotal">R$ 0,00</span>
+            </div>
+            <button class="btn-primary checkout-btn" id="checkoutBtn">Finalizar Pedido</button>
+        </div>
+    </div>
+
+    <!-- TOAST DE CONFIRMAÇÃO -->
+    <div id="toast" class="toast"></div>
+
+    <!-- RODAPÉ -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 Boteco Premium. Todos os direitos reservados. 🍹 Beba com moderação.</p>
+        </div>
     </footer>
 
     <script src="script.js"></script>
